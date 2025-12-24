@@ -59,6 +59,59 @@ show tables;
 -- describe the structure of table
 desc student_info;
 
+-- 24-dec-2025
+
+-- press control+enter to execute  the current line
+create database microsoft_db;
+
+show databases;
+
+use microsoft_db;
+
+create table employee
+(emp_id varchar(10) primary key,
+emp_name varchar(25) not null,
+emp_salary int,
+emp_role varchar(20) not null,
+emp_doj date,
+emp_age int check(emp_age>18));
+
+insert into employee values
+("es001","arun",30000,"hr","2021-03-12",22),
+("es002","bhavya",20000,"sales","2020-12-03",24),
+("es003","charan",40000,"admin","201-12-12",32),
+("es004","diya",15000,"security","2019-12-03",40),
+("es005","gagan",60000,"head","2012-03-03",50);
+
+select * from employee;
+
+desc employee;
+
+-- 1. checking the constraint for primary key--error
+insert into employee values
+("es002","pradeep",25000,"hr","2022-12-22",26);
+
+-- 2. emp_age constraint--error
+insert into employee values
+("es007","pradeep",25000,"hr","2022-12-22",15);
+
+-- 3.emp_name-not null constraint--error-1364
+insert into employee (emp_id,emp_salary,emp_role,emp_doj,emp_age)
+values("es008",50000,"hr","2022-12-10",25);
+
+-- 4. emp_doj and emp_salary no constraint
+insert into employee (emp_id,emp_name,emp_role,emp_age)
+values("es008","sandeep","manager",22);
+
+select * from employee;
+
+
+
+
+
+
+
+
 
 
 
