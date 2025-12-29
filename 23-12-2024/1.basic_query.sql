@@ -104,13 +104,120 @@ insert into employee (emp_id,emp_name,emp_role,emp_age)
 values("es008","sandeep","manager",22);
 
 select * from employee;
+-- 29-DEC-2025
+
+-- select the existing database
+use microsoft_db;
+
+show tables;
+
+select * from employee;
+
+-- filter the data
+-- 1.retreive all the employee details who's age is greater than 35
+select *
+from employee
+where emp_age>35;
 
 
+-- 2.retreive all the employee name who's salary is greater than 35000
+select emp_name
+from employee
+where emp_salary>35000;
+
+-- 3.retreive all the employee details who's salary>35000 and age>30;
+select *
+from employee
+where emp_salary > 35000 and emp_age > 30;
+
+-- 4.retreive all the employee details who's salary>35000 or age>30;
+select *
+from employee
+where emp_salary > 35000 or emp_age > 30;
+
+-- 5. find the maximum salary
+select max(emp_salary) 
+from employee;
+
+-- 6. find min salary
+-- 7. find avg salary
+-- 8.find sum of salary
+
+-- updating the data
+
+-- 5. find average salary
+select avg(emp_salary) from employee;
+
+-- 6. find min salary 
+select min(emp_salary) from employee;
+
+-- 7. find sum of salary
+select sum(emp_salary) from employee;
 
 
+-- 8.find the number of employees
+select count(emp_name) from employee;
+
+select count(*) as no_of_emp
+ from employee;
+
+--  updating the data
+-- 9. update the age of an employee to 30 who's id is "es002"
+
+update employee
+set emp_age=30
+where emp_id="es002";
+
+-- verfify by using select command
+select * from employee;
+
+-- 10.update the emp_role to "sales" who's id is "es003" and "es004"
+update employee
+set emp_role="sales" 
+where emp_id in ("es003","es004");
+
+-- verfify
+select * from employee;
+
+-- note
+-- 1.filter on different columns then-- and or works
+-- 2filter on same column then-- in (or) or works
 
 
+-- 11. delete the information about employee gagan
 
+delete from employee
+where emp_id="es005";
+
+-- verfiy by using select command
+select * from employee;
+
+
+-- add a new column too the employee table
+alter table 
+employee 
+add emp_exp int;
+
+-- verify
+select * from employee;
+
+-- 12.update the experience of an employee to 10 who's age>35
+
+set sql_safe_updates=0;
+
+update employee set emp_exp=10 where emp_age>35;
+
+select * from employee;
+
+-- add multiple columns emp_status,emp_country
+set sql_safe_updates=0;
+
+alter table
+employee
+add emp_status varchar(10),
+add emp_country varchar(20);
+
+select * from employee;
 
 
 
