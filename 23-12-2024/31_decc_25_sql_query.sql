@@ -66,46 +66,19 @@ limit 3;
 
 -- 10.fetch top 3 highest paid employees
 
+
+
 -- 11.find the number of employees ONLY in Hr dept
+select count(*) AS NO_OF_EMPLOYEE from employee
+where dept_name="HR";
+
 -- 12.find the max,min,avg,sum of salary from each dept
-
-
--- 1. find the number of employees
-select count(*) as no_of_employees
-from employee;
-
--- 2.find the department names(unique values)
-select distinct(dept_name)
-from employee;
-
--- 3.find the number of departments
-select count(distinct(dept_name)) as no_of_departments 
-from employee;
-
--- 4.find the max,min,avg and total salary
-select max(emp_salary),min(emp_salary),avg(emp_salary),sum(emp_salary)
-from employee;
-
--- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-select count(distinct (dept_name)) from employee; 
-
-
-
-
-
+select dept_name as Department,
+max(emp_salary) as Highest_Salary, 
+min(emp_salary) as Lowest_Salary, 
+avg(emp_salary) as Average_Salary, 
+sum(emp_salary) as Total_Salary 
+from employee 
+group by dept_name;
 
 
