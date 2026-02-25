@@ -84,4 +84,98 @@ select * from employee;
 
 
 
+-- 25 FEB 2026
+
+show databases;
+
+use app_db;
+
+show tables;
+
+select * from employee;
+-- insert the multiple records 
+
+insert into employee values
+("ES001","AMIT",50000,"HR","2019-12-03",25),
+("ES002","BHARAT",25000,"SALES","2020-01-12",30),
+("ES003","CHETAN",40000,"IT","2018-02-12",22),
+("ES004","DIYA",60000,"IT","2017-03-02",22),
+("ES005","JEEVAN",80000,"HR","2019-12-03",25),
+("ES006","PRIYA",75000,"SALES","2020-01-12",30),
+("ES007","JOY",90000,"IT","2018-02-12",22),
+("ES008","RAVI",45000,"FINANCE","2018-02-03",40),
+("ES009","TARUN",65000,"FINANCE","2012-02-03",36);
+
+-- verify
+select * from employee;
+-- check for the primary key constrain
+insert into employee values
+("ES009","ashwin",65000,"FINANCE","2012-02-03",36);
+
+
+insert into employee values
+("ES010","ashwin",65000,"FINANCE","2012-02-03",36);
+
+-- check for age constraint
+insert into employee values
+("ES011","drona",65000,"FINANCE","2012-02-03",18);
+
+-- insert data to the specified column
+insert into employee(emp_id,emp_name,emp_doj) values
+("ES012","SHIVANI","2022-12-12");
+
+-- verfiy the salary data and age data for an employee es012
+select * from employee;
+
+-- check the not null constraint
+insert into employee(emp_id,emp_doj)values
+("ES013","2025-12-12");
+
+-- ALTER COMMAND-- MODIFICATION OF TABLE STRUCTURE,RENAME,CHANGE THE DATA TYPE
+-- to change/ modify column, constraint, datatype, renaming ..  anything which is related to table's structure.
+
+
+-- ADD NEW COLUMN-- emp_gender
+alter table employee
+add emp_gender varchar(10);
+
+-- verify
+select * from employee;
+
+-- multiple column
+alter table employee
+add emp_status varchar(15),
+add emp_state varchar(20);
+
+-- verify
+select * from employee;
+
+-- add the the constraint to the existing column
+
+
+-- delete the column
+alter table employee drop column emp_status;
+
+select * from employee;
+
+
+set sql_safe_updates=0; -- when where updating table without pk,disable safe update mode
+
+-- update the data in gender 
+update employee
+set emp_gender="NA"
+where emp_gender is null;
+
+-- verify it
+select * from employee;
+describe employee;
+
+alter table employee
+modify emp_gender varchar(11) not null;
+
+alter table employee change emp_gender gender varchar(11);
+
+alter table employee rename to employee_info;
+
+select * from employee_info;
 
