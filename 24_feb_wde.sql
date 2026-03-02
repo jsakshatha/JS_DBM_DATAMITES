@@ -81,9 +81,6 @@ emp_age int check(emp_age>21));
 
 show tables;
 select * from employee;
-
-
-
 -- 25 FEB 2026
 
 show databases;
@@ -177,6 +174,7 @@ alter table employee change emp_gender gender varchar(11);
 
 alter table employee rename to employee_info;
 
+select * from employee_info;
 
 
 -- 26 FEB 2026
@@ -315,7 +313,138 @@ select *
 from employee
 where emp_age is null;
 
+-- 02-March-2026
+
+show databases;
+
+use app_db;
+
+show tables;
+
+select * from employee;
+
+-- 21. find the employee names starts with "A"
+-- % represents matching any number of characters
+select emp_name
+from employee
+where emp_name like "A%";
+
+-- 22. find the employee names starts with "j"
+select emp_name
+from employee
+where emp_name like "j%";
+
+-- 23.find the employee name ends with "A"
+select emp_name
+from employee
+where emp_name like "%A";
+
+-- 24. find employee details who doesn't belongs to IT dept
+
+select * 
+from employee 
+where emp_dept not in ("IT");
+
+select * 
+from employee 
+where  not emp_dept  ="IT";
+
+select emp_dept
+from employe_info
+where emp_dept !="IT";
+
+SELECT *
+FROM   employee
+WHERE  emp_dept NOT LIKE 'IT';
+
+-- 25.find the details of the employee who is maximum salary
+
+-- step 1: find the maximum salary
+select max(emp_salary)
+from employee;
+
+-- step 2: find the details the employee who salary is 90000
+select * from employee where emp_salary = 90000;
+
+-- sub query
+select * 
+from employee where emp_salary = (select max(emp_salary)
+									from employee);
+
+-- 26.find the details of the employee getting more than avg salary
+select * 
+from employee where emp_salary > (select avg(emp_salary)
+									from employee);
 
 
-select * from employee_info;
+-- 27.find the second highest salary-sub queries
+-- step 1: find all the employee whos salary is lesser than max salary
+select * 
+from employee 
+where emp_salary < ( select max(emp_salary) from employee );
+
+-- step 2:find all the employee whos salary is lesser than max salary 
+-- and arrange it in desecending order.
+select * 
+from employee 
+where emp_salary < ( select max(emp_salary) from employee )
+order by emp_salary desc;
+
+-- step 3: for above question fetch the top 1st row
+select * 
+from employee 
+where emp_salary < ( select max(emp_salary) from employee )
+order by emp_salary desc
+limit 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
