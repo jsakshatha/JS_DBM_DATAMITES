@@ -110,7 +110,149 @@ db.employee.find({name:"varun"})
   salary: 20000,
   age: 20
 }
-office_db
-Selection deleted
+// step:11 find the details of neha
+db.employee.find({name:"neha"})
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+// step:12 sort the salary in ascending order
+db.employee.find().sort({salary:1})
+{
+  _id: ObjectId('69a8555220d807a9849c835f'),
+  name: 'ahswini',
+  salary: 15000
+}
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 20
+}
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+// step:13 sort the salary in descending order
+db.employee.find().sort({salary:-1})
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 20
+}
+{
+  _id: ObjectId('69a8555220d807a9849c835f'),
+  name: 'ahswini',
+  salary: 15000
+}
+// step:14 fetch the top 2 records
+db.employee.find().limit(2)
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+// query 1: find the employee details who is getting maximum salary
+db.employee.find().sort({salary:-1}).limit(1)
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+// step:15 comparision operator-- gt,gte,lt,lte,ne,eq
+// query 2: find the employee details who's getting salary greater than 30000
+db.employee.find({salary :{$gt: 30000}})
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+// query 3: find the employee details who's getting salary lesser than 30000 by using $lt
+db.employee.find({salary :{$lt: 30000}})
+{
+  _id: ObjectId('69a8555220d807a9849c835f'),
+  name: 'ahswini',
+  salary: 15000
+}
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 20
+}
+// query 4: find the employee details who's getting salary equal to 50000 by using $eq
+ 
+db.employee.find({salary :{$eq: 50000}})
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+// step:16  update the age of an employee varun
+db.employee.find({name:"varun"})
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 20
+}
+db.employee.updateOne( {name:"varun"},{$set : {age:40}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+// verfiy the age of varun is updated
+db.employee.find({name:"varun"})
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 40
+}
+// step:17  add new attribute country for the salary less than 30000
+
+
+db.employee.updateMany({salary :{$lt:30000}},{$set :{country:"India"}})
 
 
