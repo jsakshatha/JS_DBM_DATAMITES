@@ -1,0 +1,116 @@
+show databases
+admin                    40.00 KiB
+company_db              152.00 KiB
+config                   72.00 KiB
+datamites               112.00 KiB
+datamites_db_mar         72.00 KiB
+datamites_institute_db    8.00 KiB
+electronic_db           152.00 KiB
+essentials_db           144.00 KiB
+local                    96.00 KiB
+mycompany                56.00 KiB
+mycompany_db            144.00 KiB
+sales_db                152.00 KiB
+smartquick_db           168.00 KiB
+store_db                144.00 KiB
+// comments can be written by using forward slash
+// step 1: create new databbase by using use command
+use office_db;
+switched to db office_db
+// step 2: create a collection employee
+db.createCollection("employee")
+{ ok: 1 }
+// step 3:check the database iffice_db is present?
+show databases
+admin                    40.00 KiB
+company_db              152.00 KiB
+config                  108.00 KiB
+datamites               112.00 KiB
+datamites_db_mar         72.00 KiB
+datamites_institute_db    8.00 KiB
+electronic_db           152.00 KiB
+essentials_db           144.00 KiB
+local                    96.00 KiB
+mycompany                56.00 KiB
+mycompany_db            144.00 KiB
+office_db                 8.00 KiB
+sales_db                152.00 KiB
+smartquick_db           168.00 KiB
+store_db                144.00 KiB
+// step 4 :check collection employee is created?
+show collections
+employee
+// step:5 insert only one document
+db.employee.insertOne({name:"neha",salary:50000})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a8520420d807a9849c835d')
+}
+// step:6 insert only one document again
+db.employee.insertOne({name:"priya",salary:60000,age:20,city:"chennai"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a852eb20d807a9849c835e')
+}
+// step:7 view all the documents
+db.employee.find()
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+// step:8  insert multiple documents use [] brackets
+db.employee.insertMany([{name:"ahswini",salary:15000},{name:"varun",salary:20000,age:20}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69a8555220d807a9849c835f'),
+    '1': ObjectId('69a8555220d807a9849c8360')
+  }
+}
+db.employee.find()
+{
+  _id: ObjectId('69a8520420d807a9849c835d'),
+  name: 'neha',
+  salary: 50000
+}
+{
+  _id: ObjectId('69a852eb20d807a9849c835e'),
+  name: 'priya',
+  salary: 60000,
+  age: 20,
+  city: 'chennai'
+}
+{
+  _id: ObjectId('69a8555220d807a9849c835f'),
+  name: 'ahswini',
+  salary: 15000
+}
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 20
+}
+// step:9  count the number of records
+db.employee.countDocuments()
+4
+// step:10 find the specific document
+db.employee.find({name:"varun"})
+{
+  _id: ObjectId('69a8555220d807a9849c8360'),
+  name: 'varun',
+  salary: 20000,
+  age: 20
+}
+office_db
+Selection deleted
+
+
