@@ -256,3 +256,225 @@ db.employee.find({name:"varun"})
 db.employee.updateMany({salary :{$lt:30000}},{$set :{country:"India"}})
 
 
+// step:10 delete one record
+db.employee.deleteOne({name:"varun"})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+
+
+// step:20 insert employee details name,salary,age,dept
+db.employee.insertOne({name:"amit",salary:25000,age:25,dept:"hr"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a9a567af8977e63b9e526b')
+}
+db.employee.insertOne({name:"charan",salary:20000,age:20,dept:"hr"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a9a586af8977e63b9e526c')
+}
+db.employee.insertOne({name:"manoj",salary:50000,age:45,dept:"it"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a9a605af8977e63b9e526d')
+}
+db.employee.insertOne({name:"naveen",salary:60000,age:50,dept:"it"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a9a616af8977e63b9e526e')
+}
+db.employee.insertOne({name:"john",salary:90000,age:50,dept:"sales"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a9a62eaf8977e63b9e526f')
+}
+db.employee.insertOne({name:"thomas",salary:80000,age:60,dept:"sales"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('69a9a656af8977e63b9e5270')
+}
+db.employee.find({dept:"hr"})
+{
+  _id: ObjectId('69a9a567af8977e63b9e526b'),
+  name: 'amit',
+  salary: 25000,
+  age: 25,
+  dept: 'hr'
+}
+{
+  _id: ObjectId('69a9a586af8977e63b9e526c'),
+  name: 'charan',
+  salary: 20000,
+  age: 20,
+  dept: 'hr'
+}
+db.employee.find({dept:"it"})
+{
+  _id: ObjectId('69a9a605af8977e63b9e526d'),
+  name: 'manoj',
+  salary: 50000,
+  age: 45,
+  dept: 'it'
+}
+{
+  _id: ObjectId('69a9a616af8977e63b9e526e'),
+  name: 'naveen',
+  salary: 60000,
+  age: 50,
+  dept: 'it'
+}
+// step 21: logical operators-- $and,$or,$not
+ // query 1:employee salary greater than 50000 and belongs to dept hr
+db.employee.find({$and : [{salary:{$gt:50000}},{dept:"it"}]})
+{
+  _id: ObjectId('69a9a616af8977e63b9e526e'),
+  name: 'naveen',
+  salary: 60000,
+  age: 50,
+  dept: 'it'
+}
+ // query 2: find the employee belongs to hr or sales
+db.employee.find({$or : [{dept:"hr"},{dept:"sales"}]})
+{
+  _id: ObjectId('69a9a567af8977e63b9e526b'),
+  name: 'amit',
+  salary: 25000,
+  age: 25,
+  dept: 'hr'
+}
+{
+  _id: ObjectId('69a9a586af8977e63b9e526c'),
+  name: 'charan',
+  salary: 20000,
+  age: 20,
+  dept: 'hr'
+}
+{
+  _id: ObjectId('69a9a62eaf8977e63b9e526f'),
+  name: 'john',
+  salary: 90000,
+  age: 50,
+  dept: 'sales'
+}
+{
+  _id: ObjectId('69a9a656af8977e63b9e5270'),
+  name: 'thomas',
+  salary: 80000,
+  age: 60,
+  dept: 'sales'
+}
+db.employee.find({$and:[{salary: {$gt:50000}},{dept:"it"}]})
+{
+  _id: ObjectId('69a9a616af8977e63b9e526e'),
+  name: 'naveen',
+  salary: 60000,
+  age: 50,
+  dept: 'it'
+}
+ // query : find the employee not belongs to hr 
+
+
+db.employee.find({$nor:[{dept:"hr"}]})
+{
+  _id: ObjectId('69a9a605af8977e63b9e526d'),
+  name: 'manoj',
+  salary: 50000,
+  age: 45,
+  dept: 'it'
+}
+{
+  _id: ObjectId('69a9a616af8977e63b9e526e'),
+  name: 'naveen',
+  salary: 60000,
+  age: 50,
+  dept: 'it'
+}
+{
+  _id: ObjectId('69a9a62eaf8977e63b9e526f'),
+  name: 'john',
+  salary: 90000,
+  age: 50,
+  dept: 'sales'
+}
+{
+  _id: ObjectId('69a9a656af8977e63b9e5270'),
+  name: 'thomas',
+  salary: 80000,
+  age: 60,
+  dept: 'sales'
+}
+// step 22:Aggregate function
+
+
+db.employee.aggregate([{$group : {_id:"$dept",avg_salar:{$avg: "$salary"}}}]);
+{
+  _id: 'sales',
+  avg_salar: 85000
+}
+{
+  _id: 'it',
+  avg_salar: 55000
+}
+{
+  _id: 'hr',
+  avg_salar: 22500
+}
+// find the total salary in each dept $sum
+db.employee.aggregate([{$group: {_id:"$dept",total_sal:{$sum :"$salary"}}}])
+{
+  _id: 'sales',
+  total_sal: 170000
+}
+{
+  _id: 'it',
+  total_sal: 110000
+}
+{
+  _id: 'hr',
+  total_sal: 45000
+}
+db.employee.aggregate([{$group: {_id:"$dept",max_sal:{$max :"$salary"}}}])
+{
+  _id: 'hr',
+  max_sal: 25000
+}
+{
+  _id: 'it',
+  max_sal: 60000
+}
+{
+  _id: 'sales',
+  max_sal: 90000
+}
+db.employee.aggregate([{$group: {_id:"$dept",min_sal:{$min :"$salary"}}}])
+{
+  _id: 'sales',
+  min_sal: 80000
+}
+{
+  _id: 'hr',
+  min_sal: 20000
+}
+{
+  _id: 'it',
+  min_sal: 50000
+}
+db.employee.aggregate([{$group: {_id:"$dept",total_count:{$count :{} }}}])
+{
+  _id: 'sales',
+  total_count: 2
+}
+{
+  _id: 'hr',
+  total_count: 2
+}
+{
+  _id: 'it',
+  total_count: 2
+}
+
+
+
+
